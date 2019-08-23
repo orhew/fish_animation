@@ -1,10 +1,11 @@
-import pygame, random
+import pygame
+import random
 
 
 class Fish:
     def __init__(self, pos):
         self.image = pygame.image.load("fish.png")
-        scale = random.randint(1, 5)*10
+        scale = random.randint(1, 5) * 10
         self.image = pygame.transform.smoothscale(self.image, (scale, scale))
         self.rect = self.image.get_rect()
         self.rect.center = pos
@@ -25,7 +26,6 @@ class Fish:
             self.speed[1] *= -1
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect.move_ip(0, self.speed[1])
-
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
