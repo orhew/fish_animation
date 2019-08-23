@@ -16,6 +16,7 @@ fishes = []
 
 
 def main():
+    global screen
     for i in range(10):
         fishes.append(Fish((width/2, height/2)))
     while True:
@@ -23,14 +24,20 @@ def main():
         for event in py.event.get():
             if event.type == py.QUIT:
                 quit()
+            if event.type == py.MOUSEBUTTONDOWN:
+                fishes.append(Fish(event.pos))
             if event.type == py.KEYDOWN:
-                if event.type == py.K_d:
+                if event.key == py.K_d:
+                    sprites = fishes.sprites()
                     for i in range(len(fishes) // 2):
-                        fishes.pop(0)
+                        sprites[i].kill()
+                elif event.key == py.K_f:
+                    screen = py.display.set_mode(size, py.FULLSCREEN)
+                elif event.key == py.K_ESCAPE:
+                    screen = py.display.set_mode(size)
         screen.fill(color)
         for fish in fishes:
             fish.update()
-        for fish in fishes:
             fish.draw(screen)
         py.display.flip()
 
